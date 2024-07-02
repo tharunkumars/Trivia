@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, abort, jsonify
+from flask import Flask, request, abort, jsonify,app
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import random
@@ -8,11 +8,16 @@ from models import setup_db, Question, Category
 
 QUESTIONS_PER_PAGE = 10
 
-def create_app(test_config=None):
-    # create and configure the app
-    app = Flask(__name__)
+app = Flask(__name__)
 
+def create_app(test_config=None):
+    print ( " inside create_app " )
+    # create and configure the app
+    # app = Flask(__name__)
+
+    print ( " inside create_app, after app creation " )
     if test_config is None:
+        print ( " app name " , app.name)
         setup_db(app)
     else:
         database_path = test_config.get('SQLALCHEMY_DATABASE_URI')
@@ -25,13 +30,16 @@ def create_app(test_config=None):
     """
     @TODO: Use the after_request decorator to set Access-Control-Allow
     """
-
+    return app
     """
     @TODO:
     Create an endpoint to handle GET requests
     for all available categories.
     """
-
+@app.route('/')
+def hello_world():
+    return 'Hello, World! , Hello , God'
+    #return jsonify({'message':'Hello, World!'})
 
     """
     @TODO:
@@ -105,3 +113,7 @@ def create_app(test_config=None):
 
     return app
 
+if __name__ == '__main__':
+    print ( " inside main " )
+    create_app(None)
+    app.run(debug=True)

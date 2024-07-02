@@ -30,7 +30,8 @@ CREATE TABLE public.categories (
 );
 
 
-ALTER TABLE public.categories OWNER TO student;
+-- owner need not be Changed in local Setup
+-- ALTER TABLE public.categories OWNER TO student;
 
 --
 -- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: student
@@ -44,13 +45,12 @@ CREATE SEQUENCE public.categories_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE public.categories_id_seq OWNER TO student;
+-- owner need not be Changed in local Setup
+-- ALTER TABLE public.categories_id_seq OWNER TO student;
 
 --
 -- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: student
 --
-
 ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
 
 
@@ -66,8 +66,8 @@ CREATE TABLE public.questions (
     category integer
 );
 
-
-ALTER TABLE public.questions OWNER TO student;
+-- owner need not be Changed in local Setup
+-- ALTER TABLE public.questions OWNER TO student;
 
 --
 -- Name: questions_id_seq; Type: SEQUENCE; Schema: public; Owner: student
@@ -81,8 +81,8 @@ CREATE SEQUENCE public.questions_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE public.questions_id_seq OWNER TO student;
+-- owner need not be Changed in local Setup
+-- ALTER TABLE public.questions_id_seq OWNER TO student;
 
 --
 -- Name: questions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: student
@@ -108,6 +108,7 @@ ALTER TABLE ONLY public.questions ALTER COLUMN id SET DEFAULT nextval('public.qu
 --
 -- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: student
 --
+-- Manual import cannot do by script
 
 COPY public.categories (id, type) FROM stdin;
 1	Science

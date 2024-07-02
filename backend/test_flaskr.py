@@ -4,7 +4,7 @@ import json
 from flask_sqlalchemy import SQLAlchemy
 
 from flaskr import create_app
-from models import setup_db, Question, Category
+from Trivia79.TriviaAPI.Trivia.backend.flaskr.models import setup_db, Question, Category
 
 
 class TriviaTestCase(unittest.TestCase):

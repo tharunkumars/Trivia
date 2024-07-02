@@ -1,0 +1,102 @@
+  Git Commands
+  
+	bookShelf app udacity git https://github.com/udacity/cd0037-API-Development-and-Documentation-exercises/tree/master
+
+	https://github.com/tharunkumars/Trivia
+
+  Flask Run Commands  
+  
+	  set FLASK_APP=app.py
+	  set FLASK_ENV=development
+	  flask run
+  
+  Flask Migrate Commands used :
+  
+	  flask db init
+	  flask db migrate -m "Addition of missing model columns"
+	  flask db upgrade
+
+  Requirements
+
+		pip3 install aniso8601 --upgrade  
+		pip3 install Click --upgrade  
+		pip3 install Flask --upgrade  
+		pip3 install Flask-Cors --upgrade  
+		pip3 install Flask-RESTful --upgrade  
+		pip3 install Flask-SQLAlchemy --upgrade  
+		pip3 install itsdangerous --upgrade  
+		pip3 install Jinja2 --upgrade  
+		pip3 install MarkupSafe --upgrade  
+		pip3 install psycopg2-binary --upgrade  
+		pip3 install pytz --upgrade  
+		pip3 install six --upgrade  
+		pip3 install SQLAlchemy --upgrade  
+		pip3 install Werkzeug --upgrade  
+
+Daily Startup :
+
+	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia
+	python -m virtualenv envTriviaAPI
+	cd envTriviaAPI\Scripts
+	activate.bat
+	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\backend\flaskr
+
+
+> set FLASK_APP=flaskr
+> set FLASK_ENV=development
+> __init__.py
+
+curl https://pokeapi.co/api/v2/move/47 | jq "-"
+
+curl https://pokeapi.co/api/v2/move/47 | jq "."
+
+curl https://pokeapi.co/api/v2/move/47 | jq (.)
+
+curl https://pokeapi.co/api/v2/move/47 -o C:\ReSkill\Python\Trivia7\basicFlaskapp\curlfile.txtcurl https://pokeapi.co/api/v2/move/47 | jq "-"
+
+curl https://pokeapi.co/api/v2/move/47 | jq "."
+
+curl https://pokeapi.co/api/v2/move/47 | jq (.)
+
+curl https://pokeapi.co/api/v2/move/47 -o C:\ReSkill\Python\Trivia7\basicFlaskapp\curlfile.txt
+
+curl http://127.0.0.1:5000/  | jq "."
+http://127.0.0.1:5000/smiley
+
+
+
+
+Frontend ::
+
+npm start
+
+http://localhost:3000/
+
+npm install
+
+npm ls npm (gives out lastet version of the package)
+
+npm outdated
+This command lists all the outdated packages in your project compared to the available versions in the registry.
+Run npm outdated in your terminal.
+
+npm update 
+this updates all the olderversions of all packages
+
+npm info crypto-browserify latest give info about latest version
+
+npm update npm@11.33.2  # Upgrade npm to SPECIFIC version 11.33.2
+
+
+
+npm update Node.js 
+
+
+
+node modules using crypto
+
+npm install crypto-browserify
+
+npm update crypto-browserify@3.12.0
+
+npm install minimalistic-crypto-utils
