@@ -92,11 +92,15 @@ npm update npm@11.33.2  # Upgrade npm to SPECIFIC version 11.33.2
 npm update Node.js 
 
 
-
 node modules using crypto
 
 npm install crypto-browserify
 
-npm update crypto-browserify@3.12.0
+npm install crypto-browserify@3.12.0
 
 npm install minimalistic-crypto-utils
+
+npm uninstall -g babel-loader #removes global package
+npm info babel-loader
+npm install babel-loader@8.0.5
+npm info babel-loader

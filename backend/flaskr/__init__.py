@@ -1,5 +1,15 @@
 import os
 from flask import Flask, request, abort, jsonify,app
+
+from flask import (
+    Flask, 
+    jsonify,
+    app,
+    abort,
+    request,
+    Response
+)
+
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import random
@@ -41,13 +51,39 @@ def hello_world():
     return 'Hello, World! , Hello , God'
     #return jsonify({'message':'Hello, World!'})
 
+
+
     """
-    @TODO:
+    # @TODO:
     Create an endpoint to handle GET requests for questions,
     including pagination (every 10 questions).
     This endpoint should return a list of questions,
-    number of total questions, current category, categories.
+    number of total questions, current category, categories. """
 
+@app.route('/questions', methods=['GET'])
+def get_Questions_Pagewise():
+    print( " inside GET questions ")
+    pageNum = request.args.get('page', 1, type=int)
+    print( "pageNum " , pageNum)
+
+    start = (pageNum - 1) * QUESTIONS_PER_PAGE
+    end = start + 10
+
+    result_Questions = Question.query.all()
+    list_Question = [Question.format() for Question in result_Questions]
+
+    print( "length of question " , len(list_Question))
+    # for holder in list_Question:
+    #     print( " value of holder ",holder)
+
+    return jsonify({
+        'success': True,
+        'plants':list_Question[start:end],
+        'total_plants':len(list_Question)
+        })
+    #     return 'Hello, World! , Hello , God'
+
+    """
     TEST: At this point, when you start the application
     you should see questions and categories generated,
     ten questions per page and pagination at the bottom of the screen for three pages.
