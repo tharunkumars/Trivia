@@ -68,6 +68,8 @@ http://127.0.0.1:5000/smiley
 
 Frontend ::
 
+cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\frontend\src
+
 npm start
 
 http://localhost:3000/

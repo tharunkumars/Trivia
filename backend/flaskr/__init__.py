@@ -71,6 +71,11 @@ def get_Questions_Pagewise():
 
     result_Questions = Question.query.all()
     list_Question = [Question.format() for Question in result_Questions]
+    no_of_Questions =len(list_Question)
+
+    result_Categories = Category.query.all()
+    list_Categories = [Category.format() for Category in result_Categories]
+    no_of_Categories = len(list_Categories)
 
     print( "length of question " , len(list_Question))
     # for holder in list_Question:
@@ -78,8 +83,9 @@ def get_Questions_Pagewise():
 
     return jsonify({
         'success': True,
-        'plants':list_Question[start:end],
-        'total_plants':len(list_Question)
+        'questions':list_Question[start:end],
+        'total_questions':no_of_Questions,
+        'categories':list_Categories[0:no_of_Categories]
         })
     #     return 'Hello, World! , Hello , God'
 
