@@ -33,18 +33,7 @@
 		pip3 install SQLAlchemy --upgrade  
 		pip3 install Werkzeug --upgrade  
 
-Daily Startup :
 
-	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia
-	python -m virtualenv envTriviaAPI
-	cd envTriviaAPI\Scripts
-	activate.bat
-	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\backend\flaskr
-
-
-> set FLASK_APP=flaskr
-> set FLASK_ENV=development
-> __init__.py
 
 curl https://pokeapi.co/api/v2/move/47 | jq "-"
 
@@ -63,14 +52,21 @@ curl https://pokeapi.co/api/v2/move/47 -o C:\ReSkill\Python\Trivia7\basicFlaskap
 curl http://127.0.0.1:5000/  | jq "."
 http://127.0.0.1:5000/smiley
 
+Daily Startup :
 
+	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia
+	python -m virtualenv envTriviaAPI
+	cd envTriviaAPI\Scripts
+	activate.bat
+	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\backend\flaskr
+	set FLASK_APP=flaskr
+	set FLASK_ENV=development
+	__init__.py
 
 
 Frontend ::
 
-cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\frontend\src
 
-npm start
 
 http://localhost:3000/
 
@@ -89,10 +85,7 @@ npm info crypto-browserify latest give info about latest version
 
 npm update npm@11.33.2  # Upgrade npm to SPECIFIC version 11.33.2
 
-
-
 npm update Node.js 
-
 
 node modules using crypto
 
@@ -106,3 +99,45 @@ npm uninstall -g babel-loader #removes global package
 npm info babel-loader
 npm install babel-loader@8.0.5
 npm info babel-loader
+
+npm uninstall -g react
+npm list react
+npm install react@16.8.6
+npm list react
+
+npm uninstall -g react-dom
+npm list react-dom
+npm install react-dom@16.8.6
+npm list react-dom
+
+npm list react-router-dom
+npm uninstall -g react-router-dom
+npm list react-router-dom
+npm install react-router-dom@5.0.0
+npm list react-router-dom
+
+npm list react-scripts
+npm uninstall -g react-scripts
+npm list react-scripts
+npm install react-scripts@5.0.1
+npm list react-scripts
+
+npm list react
+npm uninstall -g react
+npm list react
+npm install react@16.8.6
+npm list react
+
+npm cache clean --force
+
+npm list babel-loader
+npm uninstall -g babel-loader
+### npm cache clean --force
+npm list babel-loader
+npm install babel-loader@8.0.5
+npm list babel-loader
+
+Daily Startup :
+
+	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\frontend\src
+	npm start

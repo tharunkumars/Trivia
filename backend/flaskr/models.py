@@ -62,7 +62,7 @@ class Question(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def format(self):
+    def format_display(self):
         return {
             'id': self.id,
             'question': self.question,
@@ -84,8 +84,12 @@ class Category(db.Model):
     def __init__(self, type):
         self.type = type
 
-    def format(self):
+    def format_display(self):
         return {
             'id': self.id,
             'type': self.type
+            }
+    def format_display_id(self):
+        return {
+            'id': self.id,
             }

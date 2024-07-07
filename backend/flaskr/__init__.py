@@ -11,7 +11,7 @@ from flask import (
 )
 
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import random
 
 from models import setup_db, Question, Category
@@ -32,24 +32,38 @@ def create_app(test_config=None):
     else:
         database_path = test_config.get('SQLALCHEMY_DATABASE_URI')
         setup_db(app, database_path=database_path)
-
+    CORS(app)
+    
     """
-    @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
+    @TODO: Set up CORS. Allow '*' for origins. 
+    Delete the sample route after completing the TODOs
     """
 
     """
     @TODO: Use the after_request decorator to set Access-Control-Allow
     """
+    @app.after_request
+    def after_request(response):
+        response.headers.add(
+            "Access-Control-Allow-Headers", "Content-Type, Authorization"
+        )
+        response.headers.add(
+            "Access-Control-Allow-Headers", "GET, POST, PATCH, DELETE, OPTION"
+        )
+        return response
     return app
+
+@app.route('/')
+@cross_origin()
+def hello_world():
+    return 'Hello, World! , Hello , God'
+    #return jsonify({'message':'Hello, World!'})
     """
     @TODO:
     Create an endpoint to handle GET requests
     for all available categories.
     """
-@app.route('/')
-def hello_world():
-    return 'Hello, World! , Hello , God'
-    #return jsonify({'message':'Hello, World!'})
+
 
 
 
@@ -61,6 +75,7 @@ def hello_world():
     number of total questions, current category, categories. """
 
 @app.route('/questions', methods=['GET'])
+@cross_origin()
 def get_Questions_Pagewise():
     print( " inside GET questions ")
     pageNum = request.args.get('page', 1, type=int)
@@ -70,14 +85,18 @@ def get_Questions_Pagewise():
     end = start + 10
 
     result_Questions = Question.query.all()
-    list_Question = [Question.format() for Question in result_Questions]
+    list_Question = [Question.format_display() for Question in result_Questions]
     no_of_Questions =len(list_Question)
 
     result_Categories = Category.query.all()
-    list_Categories = [Category.format() for Category in result_Categories]
+    list_Categories = [Category.format_display() for Category in result_Categories]
     no_of_Categories = len(list_Categories)
 
-    print( "length of question " , len(list_Question))
+    print( "length of question " , no_of_Questions)
+    print( "List  of question " , list_Question)
+    print( "length of Categories " , no_of_Categories)
+    print( "List  of Categories " , list_Categories)
+
     # for holder in list_Question:
     #     print( " value of holder ",holder)
 

@@ -130,31 +130,21 @@ class QuestionView extends Component {
     return (
       <div className='question-view'>
         <div className='categories-list'>
-          <h2
-            onClick={() => {
-              this.getQuestions();
-            }}
-          >
-            Categories
+          <h2 onClick={() => {this.getQuestions();}}>
+            Categories         
           </h2>
-          <ul>
-              
+          <ul>              
             {Object.keys(this.state.categories).map((id) => (
               
-              <li
-                key={id}
-                onClick={() => {
-                  this.getByCategory(id);
-                }}
-              >
-                {this.state.categories[id]}
-                console.log(' ERROR OUT ' + this.state.categories[id])                
+              <li key={id} onClick={() => {this.getByCategory(id);}}>
+                {this.state.categories[id].type}
                 <img
                   className='category'                  
-                  alt={`${this.state.categories[id].toLowerCase()}`}
-                  src={`${this.state.categories[id].toLowerCase()}.svg`}
+                  alt={`${this.state.categories[id].type.toLowerCase()}`}
+                  src={`${this.state.categories[id].type.toLowerCase()}.svg`}
                 />
               </li>
+
             ))}
           </ul>
           <Search submitSearch={this.submitSearch} />
