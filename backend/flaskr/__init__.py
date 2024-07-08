@@ -10,11 +10,11 @@ from flask import (
     Response
 )
 
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy 
 from flask_cors import CORS, cross_origin
 import random
 
-from models import setup_db, Question, Category
+from models import setup_db, Question, Category , return_db
 
 QUESTIONS_PER_PAGE = 10
 
@@ -63,7 +63,25 @@ def hello_world():
     Create an endpoint to handle GET requests
     for all available categories.
     """
+@app.route('/categories', methods=['GET'])
+@cross_origin()
+def get_categories():
+    print( " inside GET categories ")
 
+    result_Categories = Category.query.all()
+    list_Categories = [Category.format_display() for Category in result_Categories]
+    no_of_Categories = len(list_Categories)
+
+    print( "length of Categories " , no_of_Categories)
+    print( "List  of Categories " , list_Categories)
+
+    # for holder in list_Question:
+    #     print( " value of holder ",holder)
+
+    return jsonify({
+        'success': True,
+        'categories':list_Categories[0:no_of_Categories]
+        })
 
 
 
@@ -128,7 +146,34 @@ def get_Questions_Pagewise():
     Create an endpoint to POST a new question,
     which will require the question and answer text,
     category, and difficulty score.
+    """
+@app.route('/questions', methods=['POST'])
+@cross_origin()
+def add_Questions():
+    print( " inside ADD questions ")
+    
+    form_question = request.json.get('question')
+    form_answer = request.json.get('answer')
+    form_difficulty = request.json.get('difficulty')
+    form_category = request.json.get('category')
 
+    print( "  form_question " , form_question)
+    print( "  form_answer " , form_answer)
+    print( "  form_difficulty " , form_difficulty)
+    print( "  form_category " , form_category)
+
+    objQuestion = Question(form_question,form_answer,form_difficulty,form_category)
+
+    db = return_db()
+    db.session.add(objQuestion)  
+    db.session.commit()
+
+    return jsonify({
+        'success': True,
+        })
+    #     return 'Hello, World! , Hello , God'
+
+    """
     TEST: When you submit a question on the "Add" tab,
     the form will clear and the question will appear at the end of the last page
     of the questions list in the "List" tab.

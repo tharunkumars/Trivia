@@ -32,6 +32,9 @@ def setup_db(app, database_path=database_path):
     #     print("after db create_all")
     # # print("after db init" , db.create_all())
 
+def return_db():  
+    return db
+
 """
 Question
 
@@ -87,7 +90,7 @@ class Category(db.Model):
     def format_display(self):
         return {
             'id': self.id,
-            'type': self.type
+            'type': self.type  
             }
     def format_display_id(self):
         return {
