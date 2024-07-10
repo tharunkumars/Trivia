@@ -219,6 +219,30 @@ def add_Questions():
 
     return app
 
+
+@app.route('/questionsearch', methods=['POST'])
+@cross_origin()
+def get_Questions_SearchString():
+    print( " inside SearchString Question ")
+
+    val_searchTerm = request.json.get('searchTerm')
+
+    db = return_db()
+    formedquery = db.session.query(Question)
+    questions_retrieved = formedquery.filter(Question.question.ilike("%"+val_searchTerm+"%")).all()
+    list_Question = [Question.format_display() for Question in questions_retrieved]
+    total_questions = len(list_Question)
+
+    print( "No of questions " , total_questions)
+
+    return jsonify({
+        'success': True,
+        'questions': list_Question[0:total_questions],
+        'totalQuestions' : total_questions,
+        'currentCategory' : 'Science'
+        })    
+
+
 if __name__ == '__main__':
     print ( " inside main " )
     create_app(None)
