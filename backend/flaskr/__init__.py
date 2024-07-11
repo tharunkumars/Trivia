@@ -12,6 +12,11 @@ from flask import (
 
 from flask_sqlalchemy import SQLAlchemy 
 from flask_cors import CORS, cross_origin
+from sqlalchemy import (
+    delete,
+    select,
+    and_
+)
 import random
 
 from models import setup_db, Question, Category , return_db
@@ -39,8 +44,7 @@ def create_app(test_config=None):
     Delete the sample route after completing the TODOs
     """
 
-    """
-    @TODO: Use the after_request decorator to set Access-Control-Allow
+    """@TODO: Use the after_request decorator to set Access-Control-Allow
     """
     @app.after_request
     def after_request(response):
@@ -58,11 +62,10 @@ def create_app(test_config=None):
 def hello_world():
     return 'Hello, World! , Hello , God'
     #return jsonify({'message':'Hello, World!'})
-    """
-    @TODO:
-    Create an endpoint to handle GET requests
-    for all available categories.
-    """
+
+"""@TODO:Create an endpoint to handle GET requests
+for all available categories.
+"""
 @app.route('/categories', methods=['GET'])
 @cross_origin()
 def get_categories():
@@ -85,13 +88,17 @@ def get_categories():
 
 
 
-    """
-    # @TODO:
-    Create an endpoint to handle GET requests for questions,
-    including pagination (every 10 questions).
-    This endpoint should return a list of questions,
-    number of total questions, current category, categories. """
-
+"""# @TODO:Create an endpoint to handle GET requests for questions,
+including pagination (every 10 questions).
+This endpoint should return a list of questions,
+number of total questions, current category, categories. 
+"""
+"""
+TEST: At this point, when you start the application
+you should see questions and categories generated,
+ten questions per page and pagination at the bottom of the screen for three pages.
+Clicking on the page numbers should update the questions.
+"""
 @app.route('/questions', methods=['GET'])
 @cross_origin()
 def get_Questions_Pagewise():
@@ -126,27 +133,16 @@ def get_Questions_Pagewise():
         })
     #     return 'Hello, World! , Hello , God'
 
-    """
-    TEST: At this point, when you start the application
-    you should see questions and categories generated,
-    ten questions per page and pagination at the bottom of the screen for three pages.
-    Clicking on the page numbers should update the questions.
-    """
 
-    """
-    @TODO:
-    Create an endpoint to DELETE question using a question ID.
-
-    TEST: When you click the trash icon next to a question, the question will be removed.
-    This removal will persist in the database and when you refresh the page.
-    """
-
-    """
-    @TODO:
-    Create an endpoint to POST a new question,
-    which will require the question and answer text,
-    category, and difficulty score.
-    """
+"""@TODO:Create an endpoint to POST a new question,
+which will require the question and answer text,
+category, and difficulty score.
+"""
+"""
+TEST: When you submit a question on the "Add" tab,
+the form will clear and the question will appear at the end of the last page
+of the questions list in the "List" tab.
+"""
 @app.route('/questions', methods=['POST'])
 @cross_origin()
 def add_Questions():
@@ -162,7 +158,7 @@ def add_Questions():
     print( "  form_difficulty " , form_difficulty)
     print( "  form_category " , form_category)
 
-    objQuestion = Question(form_question,form_answer,form_difficulty,form_category)
+    objQuestion = Question(form_question,form_answer,form_category,form_difficulty)
 
     db = return_db()
     db.session.add(objQuestion)  
@@ -173,31 +169,11 @@ def add_Questions():
         })
     #     return 'Hello, World! , Hello , God'
 
-    """
-    TEST: When you submit a question on the "Add" tab,
-    the form will clear and the question will appear at the end of the last page
-    of the questions list in the "List" tab.
-    """
 
-    """
-    @TODO:
-    Create a POST endpoint to get questions based on a search term.
-    It should return any questions for whom the search term
-    is a substring of the question.
 
-    TEST: Search by any phrase. The questions list will update to include
-    only question that include that string within their question.
-    Try using the word "title" to start.
-    """
 
-    """
-    @TODO:
-    Create a GET endpoint to get questions based on category.
 
-    TEST: In the "List" tab / main screen, clicking on one of the
-    categories in the left column will cause only questions of that
-    category to be shown.
-    """
+
 
     """
     @TODO:
@@ -219,7 +195,35 @@ def add_Questions():
 
     return app
 
+""" @TODO: Create an endpoint to DELETE question using a question ID.
 
+TEST: When you click the trash icon next to a question, the question will be removed.
+This removal will persist in the database and when you refresh the page.
+"""
+@app.route('/questions/<int:id>', methods=['DELETE'])
+@cross_origin()
+def delete_Questions(id):
+    print( " inside DELETE questions ")
+
+    question_id = id
+    
+    db = return_db()
+    query = delete(Question).filter_by(id=question_id)
+    db.session.execute(query)
+    db.session.commit()
+
+    return jsonify({
+        'success': True,
+        })
+
+""" @TODO: Create a POST endpoint to get questions based on a search term.
+It should return any questions for whom the search term
+is a substring of the question.
+
+TEST: Search by any phrase. The questions list will update to include
+only question that include that string within their question.
+Try using the word "title" to start.
+"""
 @app.route('/questionsearch', methods=['POST'])
 @cross_origin()
 def get_Questions_SearchString():
@@ -241,6 +245,74 @@ def get_Questions_SearchString():
         'totalQuestions' : total_questions,
         'currentCategory' : 'Science'
         })    
+
+""" @TODO: Create a GET endpoint to get questions based on category.
+TEST: In the "List" tab / main screen, clicking on one of the
+categories in the left column will cause only questions of that
+category to be shown.
+"""
+@app.route('/categories/<int:id>/questions', methods=['GET'])
+@cross_origin()
+def get_Questions_forCategories(id):
+
+    print( " inside get_Questions_forCategories ")
+    print( " id from param" , id)
+
+    category_id = id+1   
+    print( " category_id " , category_id ) 
+
+    db = return_db()
+    formedquery_question = db.session.query(Question)
+    questions_retrieved = formedquery_question.filter_by(category = category_id).all()
+
+    print( "No of questions retrieved" , len(questions_retrieved))
+
+    list_Question = [Question.format_display() for Question in questions_retrieved]
+    total_questions = len(list_Question)
+    print( "No of questions " , total_questions)
+
+    category_retrieved = Category.query.filter_by(id = category_id).first()
+    list_Category = [Category.format_display(category_retrieved)]
+
+    total_Category = len(list_Category)    
+    print( "No of Categories " , total_Category)
+
+    return jsonify({
+        'success': True,
+        'questions': list_Question[0:total_questions],
+        'totalQuestions' : total_questions,
+        'currentCategory' : list_Category[0]
+        })   
+
+@app.route('/quizzes', methods=['POST'])
+@cross_origin()
+def get_Questions_Quiz():
+    print( " inside QUIZ Question ")
+
+    val_quizCategory = request.json.get('quiz_category')
+    previousQuestions = request.json.get('previousQuestions')
+
+    print( "  quiz_category " , val_quizCategory)
+    print( " previousQuestions " , previousQuestions)
+
+    db = return_db()
+    questions_query = select(Question).where(
+        and_(
+            Question.id != previousQuestions,
+            Question.category == val_quizCategory,
+            )
+    )
+    questions_retrieved = db.session.execute(questions_query).all() 
+    list_Question = [Question.format_display() for Question in questions_retrieved]
+    total_questions = len(list_Question)
+
+    print( "No of questions " , total_questions)
+
+    return jsonify({
+        'success': True,
+        'currentQuestion': list_Question[0],
+        })  
+
 
 
 if __name__ == '__main__':

@@ -32,8 +32,7 @@ class Question extends Component {
             onClick={() => this.props.questionAction('DELETE')}
           />
         </div>
-        <div
-          className='show-answer button'
+        <div className='show-answer button'
           onClick={() => this.flipVisibility()}
         >
           {this.state.visibleAnswer ? 'Hide' : 'Show'} Answer

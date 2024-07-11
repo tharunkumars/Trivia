@@ -47,7 +47,7 @@ class QuizView extends Component {
     if (this.state.currentQuestion.id) {
       previousQuestions.push(this.state.currentQuestion.id);
     }
-
+    window.alert(this.state.quizCategory)
     $.ajax({
       url: '/quizzes', //TODO: update request URL
       type: 'POST',
@@ -114,7 +114,7 @@ class QuizView extends Component {
                 value={id}
                 className='play-category'
                 onClick={() =>
-                  this.selectCategory({ type: this.state.categories[id].id, id })
+                  this.selectCategory({ type: this.state.categories[id].type, id })
                 }
               >
                 {this.state.categories[id].id}

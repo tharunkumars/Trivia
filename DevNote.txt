@@ -141,3 +141,5 @@ Daily Startup :
 
 	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\frontend\src
 	npm start
+
+	            window.alert('Category from question' , q.category ),
