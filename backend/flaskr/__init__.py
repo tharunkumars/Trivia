@@ -175,17 +175,7 @@ def add_Questions():
 
 
 
-    """
-    @TODO:
-    Create a POST endpoint to get questions to play the quiz.
-    This endpoint should take category and previous question parameters
-    and return a random questions within the given category,
-    if provided, and that is not one of the previous questions.
 
-    TEST: In the "Play" tab, after a user selects "All" or a category,
-    one question at a time is displayed, the user is allowed to answer
-    and shown whether they were correct or not.
-    """
 
     """
     @TODO:
@@ -284,34 +274,80 @@ def get_Questions_forCategories(id):
         'currentCategory' : list_Category[0]
         })   
 
+"""
+@TODO:
+Create a POST endpoint to get questions to play the quiz.
+This endpoint should take category and previous question parameters
+and return a random questions within the given category,
+if provided, and that is not one of the previous questions.
+
+TEST: In the "Play" tab, after a user selects "All" or a category,
+one question at a time is displayed, the user is allowed to answer
+and shown whether they were correct or not.
+"""
 @app.route('/quizzes', methods=['POST'])
 @cross_origin()
 def get_Questions_Quiz():
     print( " inside QUIZ Question ")
 
     val_quizCategory = request.json.get('quiz_category')
+    type_Category = val_quizCategory.get('type', '')
+    id_Category = val_quizCategory.get('id', 0)
+    print( "  type_Category " , type_Category)
+    print( " id_Category " , id_Category)
+
     previousQuestions = request.json.get('previousQuestions')
+    print( "  previousQuestions  " , previousQuestions)
 
-    print( "  quiz_category " , val_quizCategory)
-    print( " previousQuestions " , previousQuestions)
+    db = return_db()  
 
-    db = return_db()
-    questions_query = select(Question).where(
-        and_(
-            Question.id != previousQuestions,
-            Question.category == val_quizCategory,
-            )
-    )
-    questions_retrieved = db.session.execute(questions_query).all() 
-    list_Question = [Question.format_display() for Question in questions_retrieved]
-    total_questions = len(list_Question)
+    if(id_Category == 0):
+        list_Question = get_Quiz_AllQuestions(db)
+    else:
+        list_Question = get_Quiz_CategoryQuestions(db,id_Category)
 
-    print( "No of questions " , total_questions)
+    total_questions = len(list_Question) 
+    random_int = random.randint(0, total_questions-1)
+    print( " random_int " , random_int) 
+    current_Question = list_Question[random_int]
+  
+    print( " current_Question " , current_Question ) 
+    # if(previousQuestions == None):
+    #     list_Question = get_Quiz_FirstQuestions(db,type_Category)  
 
     return jsonify({
         'success': True,
-        'currentQuestion': list_Question[0],
+        'question': current_Question,
+        'previousQuestions': previousQuestions
         })  
+
+def get_Quiz_AllQuestions(db):
+        # questions_query = select(Question)
+        # questions_retrieved = db.session.execute(questions_query).all() 
+
+        formedquery_question = db.session.query(Question)
+        questions_retrieved = formedquery_question.all()
+
+        list_Question = [Question.format_display() for Question in questions_retrieved]
+        total_questions = len(list_Question)
+        print( "No of questions " , total_questions)
+        print( "List of questions " , list_Question)
+        return list_Question
+
+def get_Quiz_CategoryQuestions(db,id_Category):
+        # questions_query = select(Question).where(Question.category == id_Category)
+        # questions_retrieved = db.session.execute(questions_query).all()         
+
+        formedquery = db.session.query(Question)
+        questions_retrieved = formedquery.filter(Question.category == id_Category).all()
+    
+        print( "No of questions retrieved" , len(questions_retrieved))
+
+        list_Question = [Question.format_display() for Question in questions_retrieved]
+        total_questions = len(list_Question)
+        print( "No of questions " , total_questions)
+        print( "List of questions " , list_Question)
+        return list_Question
 
 
 

@@ -3,6 +3,7 @@ import $ from 'jquery';
 import '../stylesheets/QuizView.css';
 
 const questionsPerPlay = 5;
+const category_incrementer = 1 
 
 class QuizView extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class QuizView extends Component {
       showAnswer: false,
       categories: {},
       numCorrect: 0,
+      category_Counter: 0,
       currentQuestion: {},
       guess: '',
       forceEnd: false,
@@ -35,6 +37,9 @@ class QuizView extends Component {
   }
 
   selectCategory = ({ type, id = 0 }) => {
+    window.alert(" selectCategory ")
+    window.alert(type)
+    window.alert(id)
     this.setState({ quizCategory: { type, id } }, this.getNextQuestion);
   };
 
@@ -47,10 +52,11 @@ class QuizView extends Component {
     if (this.state.currentQuestion.id) {
       previousQuestions.push(this.state.currentQuestion.id);
     }
-    window.alert(this.state.quizCategory)
+    window.alert(this.state.quizCategory.type)
+    window.alert(this.state.quizCategory.id)
     $.ajax({
       url: '/quizzes', //TODO: update request URL
-      type: 'POST',
+      type: 'POST',    
       dataType: 'json',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -93,6 +99,7 @@ class QuizView extends Component {
       previousQuestions: [],
       showAnswer: false,
       numCorrect: 0,
+      category_Counter: 0,
       currentQuestion: {},
       guess: '',
       forceEnd: false,
@@ -108,16 +115,19 @@ class QuizView extends Component {
             ALL
           </div>
           {Object.keys(this.state.categories).map((id) => {
-            return (
+            return (              
               <div
                 key={id}
                 value={id}
                 className='play-category'
                 onClick={() =>
-                  this.selectCategory({ type: this.state.categories[id].type, id })
+                  this.selectCategory(
+                    { type: this.state.categories[id].type, 
+                      id: this.state.categories[id].id  
+                    })
                 }
               >
-                {this.state.categories[id].id}
+                {this.state.categories[id].type}
               </div>
             );
           })}
