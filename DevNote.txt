@@ -58,11 +58,16 @@ Daily Startup :
 	python -m virtualenv envTriviaAPI
 	cd envTriviaAPI\Scripts
 	activate.bat
+
+	C:\Users\tharunkumars\Desktop\startup.bat
+
 	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\backend\flaskr
 	set FLASK_APP=flaskr
 	set FLASK_ENV=development
 	__init__.py
 
+	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\backend\
+	python test_flaskr.py
 
 Frontend ::
 

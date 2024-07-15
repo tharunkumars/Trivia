@@ -349,7 +349,21 @@ def get_Quiz_CategoryQuestions(db,id_Category):
         print( "List of questions " , list_Question)
         return list_Question
 
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({
+        "success": False, 
+        "error": 404,
+        "message": "Not found"
+        }), 404
 
+@app.errorhandler(500)
+def server_Error(error):
+    return jsonify({
+        "success": False, 
+        "error": 500,
+        "message": "There is some issue at the Server End"
+        }), 500
 
 if __name__ == '__main__':
     print ( " inside main " )
