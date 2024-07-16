@@ -64,7 +64,7 @@ Daily Startup :
 	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\backend\flaskr
 	set FLASK_APP=flaskr
 	set FLASK_ENV=development
-	__init__.py
+	__init__.py  
 
 	"after the models.py file move"
 	C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\backend\flaskr
@@ -72,6 +72,10 @@ Daily Startup :
 	flask run --debug
 
 	flask run --reload and flask run --debug both does the same thing
+
+	SUCCESS::
+	C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\backend\flaskr>
+	flask  --app=app:app run
 
 	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\backend\
 	python test_flaskr.py
