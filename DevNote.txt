@@ -68,7 +68,7 @@ Daily Startup :
 
 	"after the models.py file move"
 	C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\backend\flaskr
-	set FLASK_APP=app
+	set FLASK_APP=app (not mandatory)
 	flask run --debug
 
 	flask run --reload and flask run --debug both does the same thing
