@@ -66,6 +66,13 @@ Daily Startup :
 	set FLASK_ENV=development
 	__init__.py
 
+	"after the models.py file move"
+	C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\backend\flaskr
+	set FLASK_APP=app
+	flask run --debug
+
+	flask run --reload and flask run --debug both does the same thing
+
 	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\backend\
 	python test_flaskr.py
 
@@ -147,4 +154,8 @@ Daily Startup :
 	cd C:\ReSkill\Python\Trivia79\Trivia79\TriviaAPI\Trivia\frontend\src
 	npm start
 
-	            window.alert('Category from question' , q.category ),
+
+
+LEARNING:
+__init__.py 
+if __name__ == '__main__':
